@@ -4,10 +4,19 @@ import db from "./db.js";
 
 const port = 8080;
 
-const sendJson = (res, statusCode, data) => {
+export const sendJson = (res, statusCode, data) => {
   const body = JSON.stringify(data);
   res.writeHead(statusCode, {
     "Content-Type": "application/json",
+  });
+
+  res.end(body);
+};
+
+export const sendHTML = (res, statusCode, data) => {
+  const body = JSON.stringify(data);
+  res.writeHead(statusCode, {
+    "Content-Type": "text/html",
   });
 
   res.end(body);
@@ -95,6 +104,15 @@ function deleteTask(req, res, id) {
 
 const server = createServer(async (req, res) => {
   try {
+    const normalHttpRequest = true;
+    if (req.method === "GET" && normalHttpRequest) {
+
+      // return sendJson(res, 200, {
+      //   message: "this is from normal http request by rajarshi",
+      // });
+
+      return sendHTML(res, 200, '<h1>this is from normal http request by rajarshi</h1>');
+    }
     const url = new URL(req.url, `http://${req.headers.host}`);
     const parts = url.pathname.split("/").filter(Boolean);
 
