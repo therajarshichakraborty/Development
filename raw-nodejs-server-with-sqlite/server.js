@@ -1,7 +1,7 @@
 import http from 'node:http';
 import { URL } from 'node:url';
 import Router from './router.js';
-//import { sendJson, sendHTML } from './index.js';
+// import { sendJson, sendHTML } from './index.js';
 
 export const sendJson = (res, statusCode, data) => {
   const body = JSON.stringify(data);
