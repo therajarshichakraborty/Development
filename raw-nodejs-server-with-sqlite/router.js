@@ -43,7 +43,7 @@ class Router {
 
 
   get(path, handler) {
-    return this.add("GET", path, handler);
+    return this.add("GET", path, handle);
   }
 
   post(path, handler) {
