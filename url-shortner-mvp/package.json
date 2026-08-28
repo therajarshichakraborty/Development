@@ -10,7 +10,12 @@
     "dev": "tsx watch server.ts",
     "preview": "node dist/server.js"
   },
-  "keywords": [],
+  "keywords": [
+    "short",
+    "url",
+    "mvp",
+    "nodejs"
+  ],
   "author": "",
   "license": "ISC",
   "devEngines": {

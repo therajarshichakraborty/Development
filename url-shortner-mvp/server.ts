@@ -29,12 +29,14 @@ async function bootStrap(): Promise<void> {
     });
   });
 
-  await connectToDatabase().then(() => {
-    console.log("Database connected successfully!");
-  }).catch((error: unknown) => {
-    console.error("Database connection failed", error);
-    process.exit(1);
-  });
+  await connectToDatabase()
+    .then(() => {
+      console.log("Database connected successfully!");
+    })
+    .catch((error: unknown) => {
+      console.error("Database connection failed", error);
+      process.exit(1);
+    });
 }
 
 bootStrap()

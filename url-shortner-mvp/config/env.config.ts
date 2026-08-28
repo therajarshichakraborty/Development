@@ -12,13 +12,24 @@ export const env = z
 
     DATABASE_URL: z
       .string()
-      .url()
       .describe("The connection string for the main database"),
 
     PORT: z.coerce
       .number()
       .default(4040)
       .describe("The port number for the server"),
+
+    JWT_SECRET: z.string().describe("Secret key for signing JWT tokens"),
+
+    JWT_EXPIRES_IN: z
+      .string()
+      .default("7d")
+      .describe("JWT token expiration time (e.g. '7d', '24h')"),
+
+    BASE_URL: z
+      .string()
+      .default("http://localhost:4040")
+      .describe("Base URL for constructing short links in responses"),
   })
   .parse(process.env);
 
