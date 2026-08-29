@@ -7,12 +7,12 @@ async function application(): Promise<Application> {
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
   app.use(
-	cors({
-		origin: ["http://localhost:5173", "http://localhost:3000", "*"],
-		methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-		credentials: true,
-	}),
-);
+    cors({
+      origin: ["http://localhost:5173", "http://localhost:3000", "*"],
+      methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+      credentials: true,
+    })
+  );
 
   app.get("/", (_: Request, res: Response) => {
     res.status(200).json({ message: "URL Shortner MVP" });
