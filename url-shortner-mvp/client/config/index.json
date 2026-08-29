@@ -1,0 +1,150 @@
+{
+  "company": {
+    "name": "Shortly MVP",
+    "logo": "/favicon.svg"
+  },
+  "navigation": [
+    {
+      "name": "Product",
+      "href": "product"
+    },
+    {
+      "name": "Features",
+      "href": "features"
+    },
+    {
+      "name": "Pricing",
+      "href": "pricing"
+    },
+    {
+      "name": "About",
+      "href": "about"
+    }
+  ],
+  "callToAction": {
+    "text": "Get started",
+    "href": "#shorten"
+  },
+  "mainHero": {
+    "title": "Lightning Fast",
+    "subtitle": "URL Shortener & Analytics",
+    "description": "Transform unwieldy URLs into concise, branded links with sub-15ms redirection latency, non-blocking click tracking, and real-time clickstream analytics.",
+    "primaryAction": {
+      "text": "Shorten a Link",
+      "href": "#shorten"
+    },
+    "secondaryAction": {
+      "text": "View Features",
+      "href": "#features"
+    }
+  },
+  "product": {
+    "title": "Built for Blazing Fast Redirection & Precision Tracking",
+    "items": [
+      {
+        "title": "Instant O(1) Redirections",
+        "description": "Unique nanoid indexing guarantees sub-15 millisecond lookup times on redirect endpoints without unnecessary authentication overhead or database bottlenecks.",
+        "img": "/assets/images/product1.svg"
+      },
+      {
+        "title": "Non-Blocking Clickstream Analytics",
+        "description": "Never delay the user. Our async ingestion pipeline logs referrers, device types, and geographic location without blocking the redirect response.",
+        "img": "/assets/images/product2.svg"
+      }
+    ]
+  },
+  "features": {
+    "title": "Key Features",
+    "subtitle": "Everything you need to manage your links",
+    "description": "Enterprise-grade URL shortening infrastructure built on a modern reactive stack.",
+    "items": [
+      {
+        "name": "React.js",
+        "description": "Reactive, lightning-fast user interface with instant client-side link shortening and QR code generation.",
+        "icon": "/assets/images/react.svg"
+      },
+      {
+        "name": "Tailwind",
+        "description": "Sleek, responsive Tailwind CSS v4 styling with tailored color tokens and fluid transitions.",
+        "icon": "/assets/images/tailwindcss.svg"
+      },
+      {
+        "name": "Typescript",
+        "description": "End-to-end type safety from Express backend to Vite React client with strict contracts.",
+        "icon": "/assets/images/ts.svg"
+      },
+      {
+        "name": "Analytics",
+        "description": "Comprehensive metrics tracking total clicks, referrer breakdown, and browser statistics.",
+        "icon": "/assets/images/analytics.svg"
+      }
+    ]
+  },
+  "pricing": {
+    "title": "Simple, Scalable Pricing",
+    "items": [
+      {
+        "name": "Starter",
+        "price": "$0",
+        "priceDetails": "forever free",
+        "features": [
+          "Up to 500 links / month",
+          "O(1) fast redirection",
+          "7-day click analytics",
+          "Standard QR codes",
+          "Community support"
+        ]
+      },
+      {
+        "name": "Pro",
+        "price": "$19",
+        "priceDetails": "per month",
+        "features": [
+          "Unlimited shortened links",
+          "Custom branded domains & aliases",
+          "Real-time clickstream analytics",
+          "Sub-15ms edge routing SLA",
+          "Password & link expiry protection",
+          "Priority 24/7 support"
+        ]
+      },
+      {
+        "name": "Enterprise",
+        "price": "$99",
+        "priceDetails": "per month",
+        "features": [
+          "Dedicated high-throughput cluster",
+          "Custom webhooks & raw event streaming",
+          "Multi-seat team management",
+          "99.99% uptime guarantee SLA",
+          "Dedicated solutions engineer"
+        ]
+      }
+    ]
+  },
+  "about": {
+    "sections": [
+      {
+        "name": "Documentation",
+        "href": "#features"
+      },
+      {
+        "name": "Privacy Policy",
+        "href": "#"
+      },
+      {
+        "name": "API Reference",
+        "href": "#"
+      },
+      {
+        "name": "Status",
+        "href": "#"
+      }
+    ],
+    "socialMedia": {
+      "github": "https://github.com",
+      "linkedin": "https://linkedin.com",
+      "twitter": "https://twitter.com"
+    }
+  }
+}
