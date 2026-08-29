@@ -1,12 +1,14 @@
-import type { NextFunction, Request, Response } from "express";
+import type { Request, Response, NextFunction, RequestHandler } from "express";
 
-const asyncHandler = (func: Function) => {
-  return async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      await func(req, res, next);
-    } catch (error) {
-      res.status(500).json({ message: "Internal server error", error });
-    }
+export const asyncHandler = (
+  func: (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => Promise<unknown> | unknown
+): RequestHandler => {
+  return (req: Request, res: Response, next: NextFunction): void => {
+    Promise.resolve(func(req, res, next)).catch(next);
   };
 };
 

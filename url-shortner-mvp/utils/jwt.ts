@@ -1,55 +1,25 @@
-import crypto from "node:crypto";
+import jwt, { type SignOptions } from "jsonwebtoken";
 import { env } from "../config/env.config.js";
-interface JwtHeader {
-  alg: "HS256";
-  typ: "JWT";
+
+export interface JwtUserPayload {
+  id: string;
+  email: string;
+  roles?: string[] | undefined;
 }
 
-interface JwtPayload {
-  sub: string;
-  email?: string;
-  roles?: string[];
-  iat: number;
-  exp: number;
-}
-
-function toBase64url(source: string | Buffer): string {
-  const buffer = typeof source === "string" ? Buffer.from(source) : source;
-  return buffer
-    .toString("base64")
-    .replace(/=/g, "")
-    .replace(/\+/g, "-")
-    .replace(/\//g, "_");
-}
-
-export const genarateToken = (userId: string, email: string): string => {
+export const generateToken = (payload: JwtUserPayload): string => {
   if (!env.JWT_SECRET) {
     throw new Error("JWT_SECRET environment variable is missing.");
   }
+  const expiresIn = (env.JWT_EXPIRES_IN || "7d") as NonNullable<
+    SignOptions["expiresIn"]
+  >;
+  return jwt.sign(payload, env.JWT_SECRET, { expiresIn });
+};
 
-  const nowInSeconds = Math.floor(Date.now() / 1000);
-
-  const header: JwtHeader = {
-    alg: "HS256",
-    typ: "JWT",
-  };
-  const payload: JwtPayload = {
-    sub: userId,
-    email: email,
-    iat: nowInSeconds,
-    exp: nowInSeconds + 60 * 60 * 24,
-  };
-
-  const encodedHeaders = toBase64url(JSON.stringify(header));
-  const encodedPayload = toBase64url(JSON.stringify(payload));
-
-  const encodedTokenData = `${encodedHeaders}.${encodedPayload}`;
-
-  const signature = crypto
-    .createHmac("sha256", env.JWT_SECRET!)
-    .update(encodedTokenData)
-    .digest("base64");
-
-  const encodedSignature = toBase64url(signature);
-  return `${encodedTokenData}.${encodedSignature}`;
+export const verifyToken = (token: string): JwtUserPayload => {
+  if (!env.JWT_SECRET) {
+    throw new Error("JWT_SECRET environment variable is missing.");
+  }
+  return jwt.verify(token, env.JWT_SECRET) as JwtUserPayload;
 };

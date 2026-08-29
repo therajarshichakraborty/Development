@@ -1,24 +1,16 @@
 import bcrypt from "bcrypt";
-import jwt, { type SignOptions } from "jsonwebtoken";
 import { userRepository } from "../repositories/user.repository.js";
 import { ApiError } from "../utils/ApiError.js";
 import type { UserDocument } from "../models/user.model.js";
-import { env } from "../config/env.config.js";
+import { generateToken } from "../utils/jwt.js";
 
 interface AuthResponse {
-  user: Omit<UserDocument, "password">;
+  user: Record<string, unknown>;
   token: string;
 }
 
 export class AuthService {
-  private generateToken(userId: string): string {
-    const secret = env.JWT_SECRET || "fallback_secret_key";
-    const expiresIn = (env.JWT_EXPIRES_IN || "1d") as NonNullable<SignOptions["expiresIn"]>;
-
-    return jwt.sign({ id: userId }, secret, { expiresIn });
-  }
-
-  private sanitizeUser(user: UserDocument) {
+  private sanitizeUser(user: UserDocument): Record<string, unknown> {
     const userObj = user.toObject ? user.toObject() : { ...user };
     delete userObj.password;
     return userObj;
@@ -42,7 +34,11 @@ export class AuthService {
       password,
     });
 
-    const token = this.generateToken(newUser._id.toString());
+    const token = generateToken({
+      id: newUser._id.toString(),
+      email: newUser.email,
+      roles: newUser.roles,
+    });
 
     return {
       user: this.sanitizeUser(newUser),
@@ -63,7 +59,11 @@ export class AuthService {
       throw ApiError.unauthorized("Invalid credentials");
     }
 
-    const token = this.generateToken(user._id.toString());
+    const token = generateToken({
+      id: user._id.toString(),
+      email: user.email,
+      roles: user.roles,
+    });
 
     return {
       user: this.sanitizeUser(user),
@@ -71,7 +71,10 @@ export class AuthService {
     };
   }
 
-  async getMe(userId: string): Promise<Omit<UserDocument, "password">> {
+  async getMe(userId: string): Promise<Record<string, unknown>> {
+    if (!userId) {
+      throw ApiError.unauthorized("User ID not provided");
+    }
     const user = await userRepository.findById(userId);
     if (!user) {
       throw ApiError.notFound("User not found");
@@ -80,3 +83,5 @@ export class AuthService {
     return this.sanitizeUser(user);
   }
 }
+
+export const authService = new AuthService();

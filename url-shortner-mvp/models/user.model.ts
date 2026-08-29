@@ -4,12 +4,12 @@ export interface UserDocument extends Document {
   email: string;
   name: string;
   password: string;
-  roles?: string[];
-  isVerified?: boolean;
+  roles?: string[] | undefined;
+  isVerified?: boolean | undefined;
   createdAt: Date;
   updatedAt: Date;
-  resetPasswordToken?: String;
-  resetPasswordExpires?: Date;
+  resetPasswordToken?: string | undefined;
+  resetPasswordExpires?: Date | undefined;
   comparePassword(candidatePassword: string): Promise<boolean>;
 }
 const userModelSchema = new mongoose.Schema<UserDocument>(
