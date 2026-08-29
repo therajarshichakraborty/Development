@@ -13,7 +13,7 @@ interface AuthResponse {
 export class AuthService {
   private generateToken(userId: string): string {
     const secret = env.JWT_SECRET || "fallback_secret_key";
-    const expiresIn = (env.JWT_EXPIRES_IN || "1d") as SignOptions["expiresIn"];
+    const expiresIn = (env.JWT_EXPIRES_IN || "1d") as NonNullable<SignOptions["expiresIn"]>;
 
     return jwt.sign({ id: userId }, secret, { expiresIn });
   }
@@ -29,8 +29,8 @@ export class AuthService {
     password,
     name,
   }: Partial<UserDocument>): Promise<AuthResponse> {
-    if (!email || !password) {
-      throw ApiError.badRequest("Email and password are required");
+    if (!email || !password || !name) {
+      throw ApiError.badRequest("Name, email and password are required");
     }
     const emailExists = await userRepository.existsByEmail(email);
     if (emailExists) {
