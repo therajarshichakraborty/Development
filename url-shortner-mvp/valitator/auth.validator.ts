@@ -1,3 +1,4 @@
+import { type UserDocument } from "./../models/user.model.js";
 import type { Request, Response, NextFunction } from "express";
 import { z, ZodError } from "zod";
 
@@ -7,26 +8,28 @@ export const registerSchema = z.object({
       .string()
       .trim()
       .min(2, { message: "Name must be at least 2 characters long" })
-      .max(50, { message: "Name cannot exceed 50 characters" }),
+      .max(50, { message: "Name cannot exceed 50 characters" })
+      .describe(
+        "Name must be at least 2 characters long and at most 50 characters long"
+      ),
     email: z
-      .string()
-      .trim()
-      .toLowerCase()
-      .email({ message: "Invalid email format" }),
+      .email({ message: "Invalid email format" })
+      .describe("Invalid email format"),
     password: z
       .string()
       .min(8, { message: "Password must be at least 8 characters long" })
-      .max(100, { message: "Password is too long" }),
+      .max(100, { message: "Password is too long" })
+      .describe(
+        "Password must be at least 8 characters long and at most 100 characters long"
+      ),
   }),
 });
 
 export const loginSchema = z.object({
   body: z.object({
     email: z
-      .string()
-      .trim()
-      .toLowerCase()
-      .email({ message: "Invalid email format" }),
+      .email({ message: "Invalid email format" })
+      .describe("Invalid email format"),
     password: z.string().min(1, { message: "Password is required" }),
   }),
 });

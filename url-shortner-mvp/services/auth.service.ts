@@ -3,6 +3,7 @@ import jwt, { type SignOptions } from "jsonwebtoken";
 import { userRepository } from "../repositories/user.repository.js";
 import { ApiError } from "../utils/ApiError.js";
 import type { UserDocument } from "../models/user.model.js";
+import { env } from "../config/env.config.js";
 
 interface AuthResponse {
   user: Omit<UserDocument, "password">;
@@ -11,9 +12,8 @@ interface AuthResponse {
 
 export class AuthService {
   private generateToken(userId: string): string {
-    const secret = process.env.JWT_SECRET || "fallback_secret_key";
-    const expiresIn = (process.env.JWT_EXPIRES_IN ||
-      "1d") as SignOptions["expiresIn"];
+    const secret = env.JWT_SECRET || "fallback_secret_key";
+    const expiresIn = (env.JWT_EXPIRES_IN || "1d") as SignOptions["expiresIn"];
 
     return jwt.sign({ id: userId }, secret, { expiresIn });
   }

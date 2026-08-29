@@ -1,6 +1,7 @@
 import express from "express";
 import type { Application, Request, Response } from "express";
 import cors from "cors";
+
 async function application(): Promise<Application> {
   const app: Application = express();
 
@@ -8,8 +9,8 @@ async function application(): Promise<Application> {
   app.use(express.urlencoded({ extended: false }));
   app.use(
     cors({
-      origin: ["http://localhost:5173", "http://localhost:3000", "*"],
-      methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+      origin: ["*"],
+      methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
       credentials: true,
     })
   );

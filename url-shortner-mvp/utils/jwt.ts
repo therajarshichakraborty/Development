@@ -1,5 +1,5 @@
 import crypto from "node:crypto";
-
+import { env } from "../config/env.config.js";
 interface JwtHeader {
   alg: "HS256";
   typ: "JWT";
@@ -13,7 +13,7 @@ interface JwtPayload {
   exp: number;
 }
 
-function base64Url(source: string | Buffer): string {
+function toBase64url(source: string | Buffer): string {
   const buffer = typeof source === "string" ? Buffer.from(source) : source;
   return buffer
     .toString("base64")
@@ -23,8 +23,7 @@ function base64Url(source: string | Buffer): string {
 }
 
 export const genarateToken = (userId: string, email: string): string => {
-  const secret = process.env.JWT_SECRET;
-  if (!secret) {
+  if (!env.JWT_SECRET) {
     throw new Error("JWT_SECRET environment variable is missing.");
   }
 
@@ -41,16 +40,16 @@ export const genarateToken = (userId: string, email: string): string => {
     exp: nowInSeconds + 60 * 60 * 24,
   };
 
-  const encodedHeaders = base64Url(JSON.stringify(header));
-  const encodedPayload = base64Url(JSON.stringify(payload));
+  const encodedHeaders = toBase64url(JSON.stringify(header));
+  const encodedPayload = toBase64url(JSON.stringify(payload));
 
   const encodedTokenData = `${encodedHeaders}.${encodedPayload}`;
 
   const signature = crypto
-    .createHmac("sha256", secret)
+    .createHmac("sha256", env.JWT_SECRET!)
     .update(encodedTokenData)
     .digest("base64");
 
-  const encodedSignature = base64Url(signature);
+  const encodedSignature = toBase64url(signature);
   return `${encodedTokenData}.${encodedSignature}`;
 };
