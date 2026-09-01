@@ -1,14 +1,16 @@
 import express from "express";
 import type { Application, Request, Response } from "express";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 import authRouter from "./routes/auth.route.js";
 import { errorHandler } from "./middleware/error.middleware.js";
 
-async function application(): Promise<Application> {
+export default async function application(): Promise<Application> {
   const app: Application = express();
 
-  app.use(express.json());
-  app.use(express.urlencoded({ extended: false }));
+  app.use(express.json({ limit: "16kb" }));
+  app.use(express.urlencoded({ extended: true, limit: "16kb" }));
+  app.use(cookieParser());
   app.use(
     cors({
       origin: true,
@@ -31,5 +33,3 @@ async function application(): Promise<Application> {
 
   return app;
 }
-
-export default application;
