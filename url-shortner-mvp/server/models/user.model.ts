@@ -47,7 +47,7 @@ const userModelSchema = new mongoose.Schema<UserDocument>(
   { timestamps: true }
 );
 
-userModelSchema.plugin(mongooseAggregatePaginate)
+userModelSchema.plugin(mongooseAggregatePaginate);
 
 userModelSchema.pre<UserDocument>("save", async function () {
   if (!this.isModified("password")) return;

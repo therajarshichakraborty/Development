@@ -8,8 +8,12 @@ const connectToDatabase = async (): Promise<void> => {
     if (!databaseURI) {
       throw new Error("DATABASE_URL is not defined");
     }
-    const connectionInstance = await mongoose.connect(`${databaseURI}/${DB_NAME}`!);
-    console.log(`\n MongoDB connected successfullt!! DB HOST: ${connectionInstance.connection.host}`);
+    const connectionInstance = await mongoose.connect(
+      `${databaseURI}/${DB_NAME}`!
+    );
+    console.log(
+      `\n MongoDB connected successfullt!! DB HOST: ${connectionInstance.connection.host}`
+    );
   } catch (error) {
     console.error("Error connecting to database", error);
     process.exit(1);
