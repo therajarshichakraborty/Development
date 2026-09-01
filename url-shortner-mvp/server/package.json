@@ -15,7 +15,9 @@
     "short",
     "url",
     "mvp",
-    "nodejs"
+    "nodejs",
+    "javascript",
+    "backend"
   ],
   "license": "ISC",
   "devEngines": {
@@ -27,28 +29,33 @@
   },
   "type": "module",
   "dependencies": {
-    "@types/express": "^5.0.6",
     "@types/mongoose": "^5.11.97",
-    "@types/multer": "^2.2.0",
-    "@types/node": "^26.4.0",
     "bcrypt": "^6.0.0",
     "biome": "^0.3.3",
+    "cloudinary": "^2.11.0",
+    "cookie-parser": "^1.4.7",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.9.4",
+    "mongoose-aggregate-paginate-v2": "^1.1.5",
     "multer": "^2.2.0",
     "nodemailer": "^9.0.6",
-    "prettier": "^3.9.6",
-    "tsdown": "^0.22.14",
-    "tsx": "^4.23.12",
-    "typescript": "^7.0.2",
     "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.5.11",
     "@types/bcrypt": "^6.0.0",
+    "@types/cookie-parser": "^1.4.10",
     "@types/cors": "^2.8.19",
-    "@types/jsonwebtoken": "^9.0.10"
+    "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/multer": "^2.2.0",
+    "@types/node": "^26.4.0",
+    "prettier": "^3.9.6",
+    "tsdown": "^0.22.14",
+    "tsx": "^4.23.12",
+    "typescript": "^7.0.2"
   }
 }

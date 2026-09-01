@@ -1,5 +1,7 @@
 import mongoose, { Document } from "mongoose";
 import bcrypt from "bcrypt";
+import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2";
+
 export interface UserDocument extends Document {
   email: string;
   name: string;
@@ -44,6 +46,8 @@ const userModelSchema = new mongoose.Schema<UserDocument>(
   },
   { timestamps: true }
 );
+
+userModelSchema.plugin(mongooseAggregatePaginate)
 
 userModelSchema.pre<UserDocument>("save", async function () {
   if (!this.isModified("password")) return;
