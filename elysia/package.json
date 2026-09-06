@@ -1,0 +1,19 @@
+{
+  "type": "module",
+  "dependencies": {
+    "@elysia/node": "^1.4.6",
+    "elysia": "^1.4.30",
+    "valibot": "^1.4.2",
+    "zod": "^4.5.4"
+  },
+  "devDependencies": {
+    "@types/node": "^26.4.1",
+    "tsx": "^4.23.13",
+    "typescript": "^7.0.2"
+  },
+  "scripts": {
+    "dev": "tsx watch index.ts",
+    "build": "tsc index.ts --outDir dist",
+    "start": "NODE_ENV=production node dist/index.js"
+  }
+}
