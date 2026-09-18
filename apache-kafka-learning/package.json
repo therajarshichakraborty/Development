@@ -1,12 +1,12 @@
 {
-  "name": "raw-nodejs-server-with-apache-kafka",
+  "name": "raw-express-server-with-apache-kafka",
   "version": "1.0.0",
   "description": "trying to implement raw nodejs server with apache kafka",
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "node --watch index.js",
-    "start": "node index.js",
+    "dev": "nodemon main.js",
+    "start": "node --watch main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Rajarshi Chakraborty",
@@ -15,7 +15,10 @@
     "nodemon": "^3.1.11"
   },
   "dependencies": {
+    "@types/express": "^5.0.6",
     "@types/node": "^26.1.2",
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "socket.io": "^4.8.3",
+    "ws": "^8.21.3"
   }
 }
