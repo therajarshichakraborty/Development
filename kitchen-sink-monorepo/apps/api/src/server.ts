@@ -5,13 +5,13 @@ import cors from "cors";
 
 const { json, urlencoded } = bodyParser;
 
-export const createServer = (): Express => {
-  const app = express();
-  app
+export const scaffoldExpressApplication = (): Express=> {
+  const expressApplication : Express = express();
+  expressApplication
     .disable("x-powered-by")
     .use(morgan("dev"))
     .use(urlencoded({ extended: true }))
-    .use(json())
+    .use(json({limit:'50kb'}))
     .use(cors())
     .get('/',(_req,res)=>{
       return res.json({ health: "Health is good" })
@@ -19,9 +19,9 @@ export const createServer = (): Express => {
     .get("/message/:name", (req, res) => {
       return res.json({ message: `hello ${req.params.name}` });
     })
-    .get("/status", (_, res) => {
+    .get("/status", (_res, res) => {
       return res.json({ ok: true });
     });
 
-  return app;
+  return expressApplication;
 };
