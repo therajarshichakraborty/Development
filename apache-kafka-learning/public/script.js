@@ -14,12 +14,6 @@ export async function getUsersCurrentLocation() {
         const longitude = position.coords.longitude;
 
         console.log(`Latitude: ${latitude}, Longitude: ${longitude}`)
-
-        map.setView([latitude, longitude], 13);
-        L.marker([latitude, longitude])
-          .addTo(map)
-          .bindPopup("you are here")
-          .openPopup();
       },
       (error) => {
         console.error("Error Code: " + error.code + " - " + error.message);
@@ -30,13 +24,22 @@ export async function getUsersCurrentLocation() {
         maximumAge: 0,
       },
     );
+    return {
+      latitude,
+      longitude
+    }
   } else {
     alert("geolocation of the user is not found");
   }
 }
 
 export async function main() {
-  await getUsersCurrentLocation();
+  const { latitude, longitude } = await getUsersCurrentLocation();
+  map.setView([latitude, longitude], 13);
+  L.marker([latitude, longitude])
+    .addTo(map)
+    .bindPopup("you are here")
+    .openPopup();
 }
 
 window.addEventListener("load", main);

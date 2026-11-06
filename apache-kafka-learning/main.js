@@ -10,9 +10,7 @@
  *  customer_emit(location)
  *  sql `INSERT into Location_log rider id`
  *  })
- *
- *
- *
+ * 
  */
 
 import express from "express";
@@ -27,8 +25,9 @@ const __dirname = path.dirname(__filename);
 export const main = async () => {
   const app = express();
   const server = createServer(app);
-  const io = new Server();
-  const PORT = 8080;
+  const io = new 
+  Server();
+  const PORT = process.env.port ?? 8080;
 
   io.attach(server);
 
